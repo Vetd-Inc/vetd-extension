@@ -5,7 +5,10 @@
   "description": "Block sales emails and automatically forward them to Vetd to evaluate for you.",
   "permissions": [
     "https://mail.google.com/",
-    "https://inbox.google.com/"
+    "https://inbox.google.com/",
+    "https://app.vetd.com/",
+    "http://localhost/",
+    "http://localhost:5080/"
   ],
   "content_scripts": [
     {
@@ -13,6 +16,12 @@
       "js": ["inboxsdk.js", "app.js"]
     }
   ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": true
+  },
   "web_accessible_resources": [
     "icon.png"
   ],

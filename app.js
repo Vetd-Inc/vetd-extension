@@ -11,6 +11,39 @@
  * and the ability quickly respond to bugs.
  */
 
+var clickButtonByTooltip = (tooltip) => {
+  let button = document.querySelectorAll('[data-tooltip="' + tooltip + '"]')[0];
+  
+  button.dispatchEvent(new MouseEvent('mousedown'));
+  button.dispatchEvent(new MouseEvent('mouseup'));
+};
+
+var forwardMessage = function (message) {
+  message.content = message.bodyElement.innerHTML;
+  delete message.bodyElement;
+
+  chrome.runtime.sendMessage(
+    {
+      command: "forwardMessage",
+      args: { message: message }
+    },
+    (result) => {
+      console.log("background returned: ", result);
+
+      if (result.success) {
+        showButterBarMessage++;
+        clickButtonByTooltip("Archive");
+        // sdk.Router.goto(sdk.Router.NativeRouteIDs.INBOX);
+      }
+    }
+  );
+};
+
+
+
+// increment this counter whenever you want the ButterBar message to show upon return to inbox page
+var showButterBarMessage = 0;
+
 InboxSDK.load(2, 'sdk_vetd-extension_a96a1115ad').then(function(sdk){
 
   sdk.Toolbars.registerThreadButton({
@@ -43,17 +76,25 @@ InboxSDK.load(2, 'sdk_vetd-extension_a96a1115ad').then(function(sdk){
               dateString: messageView.getDateString()
             };
 
+            // show "Sending..." butterbar?
             console.log(message);
-
-            let butterBarMessage = sdk.ButterBar.showMessage({
-              text: "Conversation forwarded to Vetd.",
-              time: 7000
-            });
-
-            sdk.Router.goto(sdk.Router.NativeRouteIDs.INBOX);
+            forwardMessage(message);
           });          
         }
       }
     },
+  });
+
+  sdk.Router.handleListRoute(sdk.Router.NativeRouteIDs.INBOX, (listRouteView) => {
+    if (showButterBarMessage > 0) {
+      showButterBarMessage--;
+      
+      sdk.ButterBar.hideGmailMessage(); // try withiout this line
+      
+      let butterBarMessage = sdk.ButterBar.showMessage({
+        text: "Conversation archived and forwarded to Vetd.",
+        time: 7000
+      });
+    }
   });
 });
