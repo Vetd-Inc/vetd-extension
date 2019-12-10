@@ -17,145 +17,183 @@
  * Join us at: www.streak.com/careers?source=sdk
  */
 
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-module.exports = { "default": require("core-js/library/fn/json/stringify"), __esModule: true };
-},{"core-js/library/fn/json/stringify":5}],2:[function(require,module,exports){
-module.exports = { "default": require("core-js/library/fn/object/assign"), __esModule: true };
-},{"core-js/library/fn/object/assign":6}],3:[function(require,module,exports){
-module.exports = { "default": require("core-js/library/fn/object/keys"), __esModule: true };
-},{"core-js/library/fn/object/keys":7}],4:[function(require,module,exports){
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+module.exports = require("core-js/library/fn/date/now");
+},{"core-js/library/fn/date/now":8}],2:[function(require,module,exports){
+module.exports = require("core-js/library/fn/json/stringify");
+},{"core-js/library/fn/json/stringify":9}],3:[function(require,module,exports){
+module.exports = require("core-js/library/fn/object/assign");
+},{"core-js/library/fn/object/assign":10}],4:[function(require,module,exports){
+module.exports = require("core-js/library/fn/object/define-property");
+},{"core-js/library/fn/object/define-property":11}],5:[function(require,module,exports){
+module.exports = require("core-js/library/fn/object/keys");
+},{"core-js/library/fn/object/keys":12}],6:[function(require,module,exports){
+module.exports = require("core-js/library/fn/promise");
+},{"core-js/library/fn/promise":13}],7:[function(require,module,exports){
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+
+module.exports = _interopRequireDefault;
+},{}],8:[function(require,module,exports){
+require('../../modules/es6.date.now');
+module.exports = require('../../modules/_core').Date.now;
+
+},{"../../modules/_core":18,"../../modules/es6.date.now":50}],9:[function(require,module,exports){
+var core = require('../../modules/_core');
+var $JSON = core.JSON || (core.JSON = { stringify: JSON.stringify });
+module.exports = function stringify(it) { // eslint-disable-line no-unused-vars
+  return $JSON.stringify.apply($JSON, arguments);
+};
+
+},{"../../modules/_core":18}],10:[function(require,module,exports){
+require('../../modules/es6.object.assign');
+module.exports = require('../../modules/_core').Object.assign;
+
+},{"../../modules/_core":18,"../../modules/es6.object.assign":51}],11:[function(require,module,exports){
+require('../../modules/es6.object.define-property');
+var $Object = require('../../modules/_core').Object;
+module.exports = function defineProperty(it, key, desc) {
+  return $Object.defineProperty(it, key, desc);
+};
+
+},{"../../modules/_core":18,"../../modules/es6.object.define-property":52}],12:[function(require,module,exports){
+require('../../modules/es6.object.keys');
+module.exports = require('../../modules/_core').Object.keys;
+
+},{"../../modules/_core":18,"../../modules/es6.object.keys":53}],13:[function(require,module,exports){
 (function (global){
 // We only target browsers that natively support Promises, so we replace
 // Babel's Promise helper with a reference to the native promise.
-module.exports = {
-  __esModule: true,
-  default: global.Promise
-};
+module.exports = global.Promise;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],5:[function(require,module,exports){
-var core  = require('../../modules/_core')
-  , $JSON = core.JSON || (core.JSON = {stringify: JSON.stringify});
-module.exports = function stringify(it){ // eslint-disable-line no-unused-vars
-  return $JSON.stringify.apply($JSON, arguments);
-};
-},{"../../modules/_core":12}],6:[function(require,module,exports){
-require('../../modules/es6.object.assign');
-module.exports = require('../../modules/_core').Object.assign;
-},{"../../modules/_core":12,"../../modules/es6.object.assign":43}],7:[function(require,module,exports){
-require('../../modules/es6.object.keys');
-module.exports = require('../../modules/_core').Object.keys;
-},{"../../modules/_core":12,"../../modules/es6.object.keys":44}],8:[function(require,module,exports){
-module.exports = function(it){
-  if(typeof it != 'function')throw TypeError(it + ' is not a function!');
+},{}],14:[function(require,module,exports){
+module.exports = function (it) {
+  if (typeof it != 'function') throw TypeError(it + ' is not a function!');
   return it;
 };
-},{}],9:[function(require,module,exports){
+
+},{}],15:[function(require,module,exports){
 var isObject = require('./_is-object');
-module.exports = function(it){
-  if(!isObject(it))throw TypeError(it + ' is not an object!');
+module.exports = function (it) {
+  if (!isObject(it)) throw TypeError(it + ' is not an object!');
   return it;
 };
-},{"./_is-object":25}],10:[function(require,module,exports){
+
+},{"./_is-object":31}],16:[function(require,module,exports){
 // false -> Array#indexOf
 // true  -> Array#includes
-var toIObject = require('./_to-iobject')
-  , toLength  = require('./_to-length')
-  , toIndex   = require('./_to-index');
-module.exports = function(IS_INCLUDES){
-  return function($this, el, fromIndex){
-    var O      = toIObject($this)
-      , length = toLength(O.length)
-      , index  = toIndex(fromIndex, length)
-      , value;
+var toIObject = require('./_to-iobject');
+var toLength = require('./_to-length');
+var toAbsoluteIndex = require('./_to-absolute-index');
+module.exports = function (IS_INCLUDES) {
+  return function ($this, el, fromIndex) {
+    var O = toIObject($this);
+    var length = toLength(O.length);
+    var index = toAbsoluteIndex(fromIndex, length);
+    var value;
     // Array#includes uses SameValueZero equality algorithm
-    if(IS_INCLUDES && el != el)while(length > index){
+    // eslint-disable-next-line no-self-compare
+    if (IS_INCLUDES && el != el) while (length > index) {
       value = O[index++];
-      if(value != value)return true;
-    // Array#toIndex ignores holes, Array#includes - not
-    } else for(;length > index; index++)if(IS_INCLUDES || index in O){
-      if(O[index] === el)return IS_INCLUDES || index || 0;
+      // eslint-disable-next-line no-self-compare
+      if (value != value) return true;
+    // Array#indexOf ignores holes, Array#includes - not
+    } else for (;length > index; index++) if (IS_INCLUDES || index in O) {
+      if (O[index] === el) return IS_INCLUDES || index || 0;
     } return !IS_INCLUDES && -1;
   };
 };
-},{"./_to-index":36,"./_to-iobject":38,"./_to-length":39}],11:[function(require,module,exports){
+
+},{"./_to-absolute-index":43,"./_to-iobject":45,"./_to-length":46}],17:[function(require,module,exports){
 var toString = {}.toString;
 
-module.exports = function(it){
+module.exports = function (it) {
   return toString.call(it).slice(8, -1);
 };
-},{}],12:[function(require,module,exports){
-var core = module.exports = {version: '2.4.0'};
-if(typeof __e == 'number')__e = core; // eslint-disable-line no-undef
-},{}],13:[function(require,module,exports){
+
+},{}],18:[function(require,module,exports){
+var core = module.exports = { version: '2.6.8' };
+if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
+
+},{}],19:[function(require,module,exports){
 // optional / simple context binding
 var aFunction = require('./_a-function');
-module.exports = function(fn, that, length){
+module.exports = function (fn, that, length) {
   aFunction(fn);
-  if(that === undefined)return fn;
-  switch(length){
-    case 1: return function(a){
+  if (that === undefined) return fn;
+  switch (length) {
+    case 1: return function (a) {
       return fn.call(that, a);
     };
-    case 2: return function(a, b){
+    case 2: return function (a, b) {
       return fn.call(that, a, b);
     };
-    case 3: return function(a, b, c){
+    case 3: return function (a, b, c) {
       return fn.call(that, a, b, c);
     };
   }
-  return function(/* ...args */){
+  return function (/* ...args */) {
     return fn.apply(that, arguments);
   };
 };
-},{"./_a-function":8}],14:[function(require,module,exports){
+
+},{"./_a-function":14}],20:[function(require,module,exports){
 // 7.2.1 RequireObjectCoercible(argument)
-module.exports = function(it){
-  if(it == undefined)throw TypeError("Can't call method on  " + it);
+module.exports = function (it) {
+  if (it == undefined) throw TypeError("Can't call method on  " + it);
   return it;
 };
-},{}],15:[function(require,module,exports){
+
+},{}],21:[function(require,module,exports){
 // Thank's IE8 for his funny defineProperty
-module.exports = !require('./_fails')(function(){
-  return Object.defineProperty({}, 'a', {get: function(){ return 7; }}).a != 7;
+module.exports = !require('./_fails')(function () {
+  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
 });
-},{"./_fails":19}],16:[function(require,module,exports){
-var isObject = require('./_is-object')
-  , document = require('./_global').document
-  // in old IE typeof document.createElement is 'object'
-  , is = isObject(document) && isObject(document.createElement);
-module.exports = function(it){
+
+},{"./_fails":25}],22:[function(require,module,exports){
+var isObject = require('./_is-object');
+var document = require('./_global').document;
+// typeof document.createElement is 'object' in old IE
+var is = isObject(document) && isObject(document.createElement);
+module.exports = function (it) {
   return is ? document.createElement(it) : {};
 };
-},{"./_global":20,"./_is-object":25}],17:[function(require,module,exports){
+
+},{"./_global":26,"./_is-object":31}],23:[function(require,module,exports){
 // IE 8- don't enum bug keys
 module.exports = (
   'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
 ).split(',');
-},{}],18:[function(require,module,exports){
-var global    = require('./_global')
-  , core      = require('./_core')
-  , ctx       = require('./_ctx')
-  , hide      = require('./_hide')
-  , PROTOTYPE = 'prototype';
 
-var $export = function(type, name, source){
-  var IS_FORCED = type & $export.F
-    , IS_GLOBAL = type & $export.G
-    , IS_STATIC = type & $export.S
-    , IS_PROTO  = type & $export.P
-    , IS_BIND   = type & $export.B
-    , IS_WRAP   = type & $export.W
-    , exports   = IS_GLOBAL ? core : core[name] || (core[name] = {})
-    , expProto  = exports[PROTOTYPE]
-    , target    = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE]
-    , key, own, out;
-  if(IS_GLOBAL)source = name;
-  for(key in source){
+},{}],24:[function(require,module,exports){
+var global = require('./_global');
+var core = require('./_core');
+var ctx = require('./_ctx');
+var hide = require('./_hide');
+var has = require('./_has');
+var PROTOTYPE = 'prototype';
+
+var $export = function (type, name, source) {
+  var IS_FORCED = type & $export.F;
+  var IS_GLOBAL = type & $export.G;
+  var IS_STATIC = type & $export.S;
+  var IS_PROTO = type & $export.P;
+  var IS_BIND = type & $export.B;
+  var IS_WRAP = type & $export.W;
+  var exports = IS_GLOBAL ? core : core[name] || (core[name] = {});
+  var expProto = exports[PROTOTYPE];
+  var target = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE];
+  var key, own, out;
+  if (IS_GLOBAL) source = name;
+  for (key in source) {
     // contains in native
     own = !IS_FORCED && target && target[key] !== undefined;
-    if(own && key in exports)continue;
+    if (own && has(exports, key)) continue;
     // export native or passed
     out = own ? target[key] : source[key];
     // prevent global pollution for namespaces
@@ -163,11 +201,11 @@ var $export = function(type, name, source){
     // bind timers to global for call from export context
     : IS_BIND && own ? ctx(out, global)
     // wrap global constructors for prevent change them in library
-    : IS_WRAP && target[key] == out ? (function(C){
-      var F = function(a, b, c){
-        if(this instanceof C){
-          switch(arguments.length){
-            case 0: return new C;
+    : IS_WRAP && target[key] == out ? (function (C) {
+      var F = function (a, b, c) {
+        if (this instanceof C) {
+          switch (arguments.length) {
+            case 0: return new C();
             case 1: return new C(a);
             case 2: return new C(a, b);
           } return new C(a, b, c);
@@ -178,10 +216,10 @@ var $export = function(type, name, source){
     // make static versions for prototype methods
     })(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
     // export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
-    if(IS_PROTO){
+    if (IS_PROTO) {
       (exports.virtual || (exports.virtual = {}))[key] = out;
       // export proto methods to core.%CONSTRUCTOR%.prototype.%NAME%
-      if(type & $export.R && expProto && !expProto[key])hide(expProto, key, out);
+      if (type & $export.R && expProto && !expProto[key]) hide(expProto, key, out);
     }
   }
 };
@@ -193,233 +231,288 @@ $export.P = 8;   // proto
 $export.B = 16;  // bind
 $export.W = 32;  // wrap
 $export.U = 64;  // safe
-$export.R = 128; // real proto method for `library` 
+$export.R = 128; // real proto method for `library`
 module.exports = $export;
-},{"./_core":12,"./_ctx":13,"./_global":20,"./_hide":22}],19:[function(require,module,exports){
-module.exports = function(exec){
+
+},{"./_core":18,"./_ctx":19,"./_global":26,"./_has":27,"./_hide":28}],25:[function(require,module,exports){
+module.exports = function (exec) {
   try {
     return !!exec();
-  } catch(e){
+  } catch (e) {
     return true;
   }
 };
-},{}],20:[function(require,module,exports){
+
+},{}],26:[function(require,module,exports){
 // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
 var global = module.exports = typeof window != 'undefined' && window.Math == Math
-  ? window : typeof self != 'undefined' && self.Math == Math ? self : Function('return this')();
-if(typeof __g == 'number')__g = global; // eslint-disable-line no-undef
-},{}],21:[function(require,module,exports){
+  ? window : typeof self != 'undefined' && self.Math == Math ? self
+  // eslint-disable-next-line no-new-func
+  : Function('return this')();
+if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
+
+},{}],27:[function(require,module,exports){
 var hasOwnProperty = {}.hasOwnProperty;
-module.exports = function(it, key){
+module.exports = function (it, key) {
   return hasOwnProperty.call(it, key);
 };
-},{}],22:[function(require,module,exports){
-var dP         = require('./_object-dp')
-  , createDesc = require('./_property-desc');
-module.exports = require('./_descriptors') ? function(object, key, value){
+
+},{}],28:[function(require,module,exports){
+var dP = require('./_object-dp');
+var createDesc = require('./_property-desc');
+module.exports = require('./_descriptors') ? function (object, key, value) {
   return dP.f(object, key, createDesc(1, value));
-} : function(object, key, value){
+} : function (object, key, value) {
   object[key] = value;
   return object;
 };
-},{"./_descriptors":15,"./_object-dp":27,"./_property-desc":33}],23:[function(require,module,exports){
-module.exports = !require('./_descriptors') && !require('./_fails')(function(){
-  return Object.defineProperty(require('./_dom-create')('div'), 'a', {get: function(){ return 7; }}).a != 7;
+
+},{"./_descriptors":21,"./_object-dp":34,"./_property-desc":40}],29:[function(require,module,exports){
+module.exports = !require('./_descriptors') && !require('./_fails')(function () {
+  return Object.defineProperty(require('./_dom-create')('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
-},{"./_descriptors":15,"./_dom-create":16,"./_fails":19}],24:[function(require,module,exports){
+
+},{"./_descriptors":21,"./_dom-create":22,"./_fails":25}],30:[function(require,module,exports){
 // fallback for non-array-like ES3 and non-enumerable old V8 strings
 var cof = require('./_cof');
-module.exports = Object('z').propertyIsEnumerable(0) ? Object : function(it){
+// eslint-disable-next-line no-prototype-builtins
+module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
   return cof(it) == 'String' ? it.split('') : Object(it);
 };
-},{"./_cof":11}],25:[function(require,module,exports){
-module.exports = function(it){
+
+},{"./_cof":17}],31:[function(require,module,exports){
+module.exports = function (it) {
   return typeof it === 'object' ? it !== null : typeof it === 'function';
 };
-},{}],26:[function(require,module,exports){
+
+},{}],32:[function(require,module,exports){
+module.exports = true;
+
+},{}],33:[function(require,module,exports){
 'use strict';
 // 19.1.2.1 Object.assign(target, source, ...)
-var getKeys  = require('./_object-keys')
-  , gOPS     = require('./_object-gops')
-  , pIE      = require('./_object-pie')
-  , toObject = require('./_to-object')
-  , IObject  = require('./_iobject')
-  , $assign  = Object.assign;
+var DESCRIPTORS = require('./_descriptors');
+var getKeys = require('./_object-keys');
+var gOPS = require('./_object-gops');
+var pIE = require('./_object-pie');
+var toObject = require('./_to-object');
+var IObject = require('./_iobject');
+var $assign = Object.assign;
 
 // should work with symbols and should have deterministic property order (V8 bug)
-module.exports = !$assign || require('./_fails')(function(){
-  var A = {}
-    , B = {}
-    , S = Symbol()
-    , K = 'abcdefghijklmnopqrst';
+module.exports = !$assign || require('./_fails')(function () {
+  var A = {};
+  var B = {};
+  // eslint-disable-next-line no-undef
+  var S = Symbol();
+  var K = 'abcdefghijklmnopqrst';
   A[S] = 7;
-  K.split('').forEach(function(k){ B[k] = k; });
+  K.split('').forEach(function (k) { B[k] = k; });
   return $assign({}, A)[S] != 7 || Object.keys($assign({}, B)).join('') != K;
-}) ? function assign(target, source){ // eslint-disable-line no-unused-vars
-  var T     = toObject(target)
-    , aLen  = arguments.length
-    , index = 1
-    , getSymbols = gOPS.f
-    , isEnum     = pIE.f;
-  while(aLen > index){
-    var S      = IObject(arguments[index++])
-      , keys   = getSymbols ? getKeys(S).concat(getSymbols(S)) : getKeys(S)
-      , length = keys.length
-      , j      = 0
-      , key;
-    while(length > j)if(isEnum.call(S, key = keys[j++]))T[key] = S[key];
+}) ? function assign(target, source) { // eslint-disable-line no-unused-vars
+  var T = toObject(target);
+  var aLen = arguments.length;
+  var index = 1;
+  var getSymbols = gOPS.f;
+  var isEnum = pIE.f;
+  while (aLen > index) {
+    var S = IObject(arguments[index++]);
+    var keys = getSymbols ? getKeys(S).concat(getSymbols(S)) : getKeys(S);
+    var length = keys.length;
+    var j = 0;
+    var key;
+    while (length > j) {
+      key = keys[j++];
+      if (!DESCRIPTORS || isEnum.call(S, key)) T[key] = S[key];
+    }
   } return T;
 } : $assign;
-},{"./_fails":19,"./_iobject":24,"./_object-gops":28,"./_object-keys":30,"./_object-pie":31,"./_to-object":40}],27:[function(require,module,exports){
-var anObject       = require('./_an-object')
-  , IE8_DOM_DEFINE = require('./_ie8-dom-define')
-  , toPrimitive    = require('./_to-primitive')
-  , dP             = Object.defineProperty;
 
-exports.f = require('./_descriptors') ? Object.defineProperty : function defineProperty(O, P, Attributes){
+},{"./_descriptors":21,"./_fails":25,"./_iobject":30,"./_object-gops":35,"./_object-keys":37,"./_object-pie":38,"./_to-object":47}],34:[function(require,module,exports){
+var anObject = require('./_an-object');
+var IE8_DOM_DEFINE = require('./_ie8-dom-define');
+var toPrimitive = require('./_to-primitive');
+var dP = Object.defineProperty;
+
+exports.f = require('./_descriptors') ? Object.defineProperty : function defineProperty(O, P, Attributes) {
   anObject(O);
   P = toPrimitive(P, true);
   anObject(Attributes);
-  if(IE8_DOM_DEFINE)try {
+  if (IE8_DOM_DEFINE) try {
     return dP(O, P, Attributes);
-  } catch(e){ /* empty */ }
-  if('get' in Attributes || 'set' in Attributes)throw TypeError('Accessors not supported!');
-  if('value' in Attributes)O[P] = Attributes.value;
+  } catch (e) { /* empty */ }
+  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
+  if ('value' in Attributes) O[P] = Attributes.value;
   return O;
 };
-},{"./_an-object":9,"./_descriptors":15,"./_ie8-dom-define":23,"./_to-primitive":41}],28:[function(require,module,exports){
-exports.f = Object.getOwnPropertySymbols;
-},{}],29:[function(require,module,exports){
-var has          = require('./_has')
-  , toIObject    = require('./_to-iobject')
-  , arrayIndexOf = require('./_array-includes')(false)
-  , IE_PROTO     = require('./_shared-key')('IE_PROTO');
 
-module.exports = function(object, names){
-  var O      = toIObject(object)
-    , i      = 0
-    , result = []
-    , key;
-  for(key in O)if(key != IE_PROTO)has(O, key) && result.push(key);
+},{"./_an-object":15,"./_descriptors":21,"./_ie8-dom-define":29,"./_to-primitive":48}],35:[function(require,module,exports){
+exports.f = Object.getOwnPropertySymbols;
+
+},{}],36:[function(require,module,exports){
+var has = require('./_has');
+var toIObject = require('./_to-iobject');
+var arrayIndexOf = require('./_array-includes')(false);
+var IE_PROTO = require('./_shared-key')('IE_PROTO');
+
+module.exports = function (object, names) {
+  var O = toIObject(object);
+  var i = 0;
+  var result = [];
+  var key;
+  for (key in O) if (key != IE_PROTO) has(O, key) && result.push(key);
   // Don't enum bug & hidden keys
-  while(names.length > i)if(has(O, key = names[i++])){
+  while (names.length > i) if (has(O, key = names[i++])) {
     ~arrayIndexOf(result, key) || result.push(key);
   }
   return result;
 };
-},{"./_array-includes":10,"./_has":21,"./_shared-key":34,"./_to-iobject":38}],30:[function(require,module,exports){
-// 19.1.2.14 / 15.2.3.14 Object.keys(O)
-var $keys       = require('./_object-keys-internal')
-  , enumBugKeys = require('./_enum-bug-keys');
 
-module.exports = Object.keys || function keys(O){
+},{"./_array-includes":16,"./_has":27,"./_shared-key":41,"./_to-iobject":45}],37:[function(require,module,exports){
+// 19.1.2.14 / 15.2.3.14 Object.keys(O)
+var $keys = require('./_object-keys-internal');
+var enumBugKeys = require('./_enum-bug-keys');
+
+module.exports = Object.keys || function keys(O) {
   return $keys(O, enumBugKeys);
 };
-},{"./_enum-bug-keys":17,"./_object-keys-internal":29}],31:[function(require,module,exports){
+
+},{"./_enum-bug-keys":23,"./_object-keys-internal":36}],38:[function(require,module,exports){
 exports.f = {}.propertyIsEnumerable;
-},{}],32:[function(require,module,exports){
+
+},{}],39:[function(require,module,exports){
 // most Object methods by ES6 should accept primitives
-var $export = require('./_export')
-  , core    = require('./_core')
-  , fails   = require('./_fails');
-module.exports = function(KEY, exec){
-  var fn  = (core.Object || {})[KEY] || Object[KEY]
-    , exp = {};
+var $export = require('./_export');
+var core = require('./_core');
+var fails = require('./_fails');
+module.exports = function (KEY, exec) {
+  var fn = (core.Object || {})[KEY] || Object[KEY];
+  var exp = {};
   exp[KEY] = exec(fn);
-  $export($export.S + $export.F * fails(function(){ fn(1); }), 'Object', exp);
+  $export($export.S + $export.F * fails(function () { fn(1); }), 'Object', exp);
 };
-},{"./_core":12,"./_export":18,"./_fails":19}],33:[function(require,module,exports){
-module.exports = function(bitmap, value){
+
+},{"./_core":18,"./_export":24,"./_fails":25}],40:[function(require,module,exports){
+module.exports = function (bitmap, value) {
   return {
-    enumerable  : !(bitmap & 1),
+    enumerable: !(bitmap & 1),
     configurable: !(bitmap & 2),
-    writable    : !(bitmap & 4),
-    value       : value
+    writable: !(bitmap & 4),
+    value: value
   };
 };
-},{}],34:[function(require,module,exports){
-var shared = require('./_shared')('keys')
-  , uid    = require('./_uid');
-module.exports = function(key){
+
+},{}],41:[function(require,module,exports){
+var shared = require('./_shared')('keys');
+var uid = require('./_uid');
+module.exports = function (key) {
   return shared[key] || (shared[key] = uid(key));
 };
-},{"./_shared":35,"./_uid":42}],35:[function(require,module,exports){
-var global = require('./_global')
-  , SHARED = '__core-js_shared__'
-  , store  = global[SHARED] || (global[SHARED] = {});
-module.exports = function(key){
-  return store[key] || (store[key] = {});
-};
-},{"./_global":20}],36:[function(require,module,exports){
-var toInteger = require('./_to-integer')
-  , max       = Math.max
-  , min       = Math.min;
-module.exports = function(index, length){
+
+},{"./_shared":42,"./_uid":49}],42:[function(require,module,exports){
+var core = require('./_core');
+var global = require('./_global');
+var SHARED = '__core-js_shared__';
+var store = global[SHARED] || (global[SHARED] = {});
+
+(module.exports = function (key, value) {
+  return store[key] || (store[key] = value !== undefined ? value : {});
+})('versions', []).push({
+  version: core.version,
+  mode: require('./_library') ? 'pure' : 'global',
+  copyright: '© 2019 Denis Pushkarev (zloirock.ru)'
+});
+
+},{"./_core":18,"./_global":26,"./_library":32}],43:[function(require,module,exports){
+var toInteger = require('./_to-integer');
+var max = Math.max;
+var min = Math.min;
+module.exports = function (index, length) {
   index = toInteger(index);
   return index < 0 ? max(index + length, 0) : min(index, length);
 };
-},{"./_to-integer":37}],37:[function(require,module,exports){
+
+},{"./_to-integer":44}],44:[function(require,module,exports){
 // 7.1.4 ToInteger
-var ceil  = Math.ceil
-  , floor = Math.floor;
-module.exports = function(it){
+var ceil = Math.ceil;
+var floor = Math.floor;
+module.exports = function (it) {
   return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
 };
-},{}],38:[function(require,module,exports){
+
+},{}],45:[function(require,module,exports){
 // to indexed object, toObject with fallback for non-array-like ES3 strings
-var IObject = require('./_iobject')
-  , defined = require('./_defined');
-module.exports = function(it){
+var IObject = require('./_iobject');
+var defined = require('./_defined');
+module.exports = function (it) {
   return IObject(defined(it));
 };
-},{"./_defined":14,"./_iobject":24}],39:[function(require,module,exports){
+
+},{"./_defined":20,"./_iobject":30}],46:[function(require,module,exports){
 // 7.1.15 ToLength
-var toInteger = require('./_to-integer')
-  , min       = Math.min;
-module.exports = function(it){
+var toInteger = require('./_to-integer');
+var min = Math.min;
+module.exports = function (it) {
   return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
 };
-},{"./_to-integer":37}],40:[function(require,module,exports){
+
+},{"./_to-integer":44}],47:[function(require,module,exports){
 // 7.1.13 ToObject(argument)
 var defined = require('./_defined');
-module.exports = function(it){
+module.exports = function (it) {
   return Object(defined(it));
 };
-},{"./_defined":14}],41:[function(require,module,exports){
+
+},{"./_defined":20}],48:[function(require,module,exports){
 // 7.1.1 ToPrimitive(input [, PreferredType])
 var isObject = require('./_is-object');
 // instead of the ES6 spec version, we didn't implement @@toPrimitive case
 // and the second argument - flag - preferred type is a string
-module.exports = function(it, S){
-  if(!isObject(it))return it;
+module.exports = function (it, S) {
+  if (!isObject(it)) return it;
   var fn, val;
-  if(S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it)))return val;
-  if(typeof (fn = it.valueOf) == 'function' && !isObject(val = fn.call(it)))return val;
-  if(!S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it)))return val;
+  if (S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
+  if (typeof (fn = it.valueOf) == 'function' && !isObject(val = fn.call(it))) return val;
+  if (!S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
   throw TypeError("Can't convert object to primitive value");
 };
-},{"./_is-object":25}],42:[function(require,module,exports){
-var id = 0
-  , px = Math.random();
-module.exports = function(key){
+
+},{"./_is-object":31}],49:[function(require,module,exports){
+var id = 0;
+var px = Math.random();
+module.exports = function (key) {
   return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
 };
-},{}],43:[function(require,module,exports){
+
+},{}],50:[function(require,module,exports){
+// 20.3.3.1 / 15.9.4.4 Date.now()
+var $export = require('./_export');
+
+$export($export.S, 'Date', { now: function () { return new Date().getTime(); } });
+
+},{"./_export":24}],51:[function(require,module,exports){
 // 19.1.3.1 Object.assign(target, source)
 var $export = require('./_export');
 
-$export($export.S + $export.F, 'Object', {assign: require('./_object-assign')});
-},{"./_export":18,"./_object-assign":26}],44:[function(require,module,exports){
-// 19.1.2.14 Object.keys(O)
-var toObject = require('./_to-object')
-  , $keys    = require('./_object-keys');
+$export($export.S + $export.F, 'Object', { assign: require('./_object-assign') });
 
-require('./_object-sap')('keys', function(){
-  return function keys(it){
+},{"./_export":24,"./_object-assign":33}],52:[function(require,module,exports){
+var $export = require('./_export');
+// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
+$export($export.S + $export.F * !require('./_descriptors'), 'Object', { defineProperty: require('./_object-dp').f });
+
+},{"./_descriptors":21,"./_export":24,"./_object-dp":34}],53:[function(require,module,exports){
+// 19.1.2.14 Object.keys(O)
+var toObject = require('./_to-object');
+var $keys = require('./_object-keys');
+
+require('./_object-sap')('keys', function () {
+  return function keys(it) {
     return $keys(toObject(it));
   };
 });
-},{"./_object-keys":30,"./_object-sap":32,"./_to-object":40}],45:[function(require,module,exports){
+
+},{"./_object-keys":37,"./_object-sap":39,"./_to-object":47}],54:[function(require,module,exports){
 /**
  * The inverse of `_.toPairs`; this method returns an object composed
  * from key-value `pairs`.
@@ -449,7 +542,7 @@ function fromPairs(pairs) {
 
 module.exports = fromPairs;
 
-},{}],46:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 /**
  * Checks if `value` is the
  * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
@@ -482,8 +575,10 @@ function isObject(value) {
 
 module.exports = isObject;
 
-},{}],47:[function(require,module,exports){
+},{}],56:[function(require,module,exports){
 'use strict';
+
+// A smaller implementation of lodash/once that doesn't depend on lodash/before.
 
 module.exports = once;
 
@@ -502,31 +597,23 @@ function once(func) {
   };
 }
 
-},{}],48:[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _promise = require("babel-runtime/core-js/promise");
-
-var _promise2 = _interopRequireDefault(_promise);
-
 exports.default = delay;
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function delay(time, value) {
-  return new _promise2.default(function (resolve) {
+  return new Promise(function (resolve) {
     setTimeout(function () {
       resolve(value);
     }, time);
   });
 }
-module.exports = exports["default"];
 
-},{"babel-runtime/core-js/promise":4}],49:[function(require,module,exports){
+},{}],58:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -612,7 +699,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],50:[function(require,module,exports){
+},{}],59:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -699,54 +786,41 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],51:[function(require,module,exports){
+},{}],60:[function(require,module,exports){
 'use strict';
 
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
-},{"./decode":49,"./encode":50}],52:[function(require,module,exports){
-'use strict';
+},{"./decode":58,"./encode":59}],61:[function(require,module,exports){
+"use strict";
 
-Object.defineProperty(exports, "__esModule", {
+var _interopRequireDefault = require("@babel/runtime-corejs2/helpers/interopRequireDefault");
+
+var _Object$defineProperty = require("@babel/runtime-corejs2/core-js/object/define-property");
+
+_Object$defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _keys = require('babel-runtime/core-js/object/keys');
+exports["default"] = ajax;
 
-var _keys2 = _interopRequireDefault(_keys);
+var _keys = _interopRequireDefault(require("@babel/runtime-corejs2/core-js/object/keys"));
 
-var _assign = require('babel-runtime/core-js/object/assign');
+var _assign = _interopRequireDefault(require("@babel/runtime-corejs2/core-js/object/assign"));
 
-var _assign2 = _interopRequireDefault(_assign);
+var _promise = _interopRequireDefault(require("@babel/runtime-corejs2/core-js/promise"));
 
-var _promise = require('babel-runtime/core-js/promise');
+var _querystring = _interopRequireDefault(require("querystring"));
 
-var _promise2 = _interopRequireDefault(_promise);
+var _pdelay = _interopRequireDefault(require("pdelay"));
 
-exports.default = ajax;
-
-var _querystring = require('querystring');
-
-var _querystring2 = _interopRequireDefault(_querystring);
-
-var _pdelay = require('pdelay');
-
-var _pdelay2 = _interopRequireDefault(_pdelay);
-
-var _cachebustUrl = require('./cachebust-url');
-
-var _cachebustUrl2 = _interopRequireDefault(_cachebustUrl);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _cachebustUrl = _interopRequireDefault(require("./cachebust-url"));
 
 var MAX_TIMEOUT = 64 * 1000; //64 seconds
 
-
 var MAX_RETRIES = 5;
-var serversToIgnore = {};
-
-// Simple ajax helper.
+var serversToIgnore = {}; // Simple ajax helper.
 // opts:
 // * url
 // * [method]
@@ -754,57 +828,69 @@ var serversToIgnore = {};
 // * [headers] - object
 // * [xhrFields] - object
 // * [data]
+
 function ajax(opts) {
   if (!opts || typeof opts.url !== 'string') {
     throw new Error('URL must be given');
   }
-  return new _promise2.default(function (resolve, reject) {
-    var method = opts.method ? opts.method : "GET";
+
+  return new _promise["default"](function (resolve, reject) {
+    var method = opts.method ? opts.method : 'GET';
     var url = opts.url;
-    var stringData = undefined;
+    var stringData = null;
+
     if (opts.data) {
-      stringData = typeof opts.data === "string" ? opts.data : _querystring2.default.stringify(opts.data);
-      if (method === "GET" || method === "HEAD") {
-        url += (/\?/.test(url) ? "&" : "?") + stringData;
+      stringData = typeof opts.data === 'string' ? opts.data : _querystring["default"].stringify(opts.data);
+
+      if (method === 'GET' || method === 'HEAD') {
+        url += (/\?/.test(url) ? '&' : '?') + stringData;
         stringData = null;
       }
     }
 
+    var canRetry = opts.canRetry != null ? opts.canRetry : method === 'GET' || method === 'HEAD';
     var match = url.match(/(?:(?:[a-z]+:)?\/\/)?([^/]*)\//);
+
     if (!match) {
-      throw new Error("Failed to match url");
+      throw new Error('Failed to match url');
     }
+
     var server = match[1];
+
     if (Object.prototype.hasOwnProperty.call(serversToIgnore, server)) {
-      reject(new Error('Server at ' + url + ' has told us to stop connecting'));
+      reject(new Error("Server at ".concat(url, " has told us to stop connecting")));
       return;
     }
 
     if (opts.cachebust) {
-      url = (0, _cachebustUrl2.default)(url);
+      url = (0, _cachebustUrl["default"])(url);
     }
 
     var xhr = new XMLHttpRequest();
-    (0, _assign2.default)(xhr, opts.xhrFields);
+    (0, _assign["default"])(xhr, opts.xhrFields);
+
     xhr.onerror = function (event) {
       if ((opts.retryNum || 0) < MAX_RETRIES) {
-        if (xhr.status === 502 || (xhr.status === 0 || xhr.status >= 500) && (method === "GET" || method === "HEAD" || opts.canRetry === true)) {
+        if (xhr.status === 502 || (xhr.status === 0 || xhr.status >= 500) && canRetry) {
           resolve(_retry(opts));
           return;
         }
       }
 
-      var err = (0, _assign2.default)(new Error('Failed to load ' + url), {
-        event: event, xhr: xhr, status: xhr.status
-      });
-
-      // give a way for a server to tell us to go away for now. Good fallback
+      var err = (0, _assign["default"])(new Error("Failed to load ".concat(url)), {
+        event: event,
+        xhr: xhr,
+        status: xhr.status
+      }); // give a way for a server to tell us to go away for now. Good fallback
       // in case a bug ever causes clients to spam a server with requests.
+
       if (xhr.status == 490) {
         serversToIgnore[server] = true;
       }
+
       reject(err);
     };
+
     xhr.onload = function (event) {
       if (xhr.status === 200) {
         resolve({
@@ -815,194 +901,205 @@ function ajax(opts) {
         xhr.onerror(event);
       }
     };
-    xhr.open(method, url, true);
-    if (opts.headers) {
-      (function () {
-        var headers = opts.headers;
 
-        (0, _keys2.default)(headers).forEach(function (name) {
-          var value = headers[name];
-          xhr.setRequestHeader(name, value);
-        });
-      })();
+    xhr.open(method, url, true);
+
+    if (opts.headers) {
+      var headers = opts.headers;
+      (0, _keys["default"])(headers).forEach(function (name) {
+        var value = headers[name];
+        xhr.setRequestHeader(name, value);
+      });
     }
+
     xhr.send(stringData);
   });
 }
 
 function _retry(opts) {
-  var retryNum = (opts.retryNum || 0) + 1;
+  var retryNum = (opts.retryNum || 0) + 1; // 2000 4000 8000...
 
-  // 2000 4000 8000...
   var retryTimeout = Math.min(Math.pow(2, retryNum) * 1000, MAX_TIMEOUT);
-
-  return (0, _pdelay2.default)(retryTimeout).then(function () {
-    return ajax((0, _assign2.default)({}, opts, { retryNum: retryNum }));
+  return (0, _pdelay["default"])(retryTimeout).then(function () {
+    return ajax((0, _assign["default"])({}, opts, {
+      retryNum: retryNum
+    }));
   });
 }
-module.exports = exports['default'];
 
-},{"./cachebust-url":53,"babel-runtime/core-js/object/assign":2,"babel-runtime/core-js/object/keys":3,"babel-runtime/core-js/promise":4,"pdelay":48,"querystring":51}],53:[function(require,module,exports){
+},{"./cachebust-url":62,"@babel/runtime-corejs2/core-js/object/assign":3,"@babel/runtime-corejs2/core-js/object/define-property":4,"@babel/runtime-corejs2/core-js/object/keys":5,"@babel/runtime-corejs2/core-js/promise":6,"@babel/runtime-corejs2/helpers/interopRequireDefault":7,"pdelay":57,"querystring":60}],62:[function(require,module,exports){
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
+var _interopRequireDefault = require("@babel/runtime-corejs2/helpers/interopRequireDefault");
+
+var _Object$defineProperty = require("@babel/runtime-corejs2/core-js/object/define-property");
+
+_Object$defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = cachebustUrl;
+
+exports["default"] = cachebustUrl;
+
+var _now = _interopRequireDefault(require("@babel/runtime-corejs2/core-js/date/now"));
+
 var r = /([?&])_=[^&]*/;
-var nonce = Date.now() + Math.floor(Math.random() * Math.pow(2, 32));
+var nonce = (0, _now["default"])() + Math.floor(Math.random() * Math.pow(2, 32));
 
 function cachebustUrl(url) {
   if (r.test(url)) {
-    return url.replace(r, "$1_=" + nonce++);
+    return url.replace(r, '$1_=' + nonce++);
   } else {
-    return url + (/\?/.test(url) ? "&" : "?") + "_=" + nonce++;
+    return url + (/\?/.test(url) ? '&' : '?') + '_=' + nonce++;
   }
 }
-module.exports = exports["default"];
 
-},{}],54:[function(require,module,exports){
-'use strict';
+},{"@babel/runtime-corejs2/core-js/date/now":1,"@babel/runtime-corejs2/core-js/object/define-property":4,"@babel/runtime-corejs2/helpers/interopRequireDefault":7}],63:[function(require,module,exports){
+"use strict";
 
-Object.defineProperty(exports, "__esModule", {
+var _interopRequireDefault = require("@babel/runtime-corejs2/helpers/interopRequireDefault");
+
+var _Object$defineProperty = require("@babel/runtime-corejs2/core-js/object/define-property");
+
+_Object$defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _promise = require('babel-runtime/core-js/promise');
+exports["default"] = connectivityTest;
 
-var _promise2 = _interopRequireDefault(_promise);
+var _promise = _interopRequireDefault(require("@babel/runtime-corejs2/core-js/promise"));
 
-exports.default = connectivityTest;
+var _cachebustUrl = _interopRequireDefault(require("./cachebust-url"));
 
-var _cachebustUrl = require('./cachebust-url');
-
-var _cachebustUrl2 = _interopRequireDefault(_cachebustUrl);
-
-var _fromPairs = require('lodash/fromPairs');
-
-var _fromPairs2 = _interopRequireDefault(_fromPairs);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _fromPairs = _interopRequireDefault(require("lodash/fromPairs"));
 
 var URLS = ['https://mailfoogae.appspot.com/build/images/composeOverflowToggle.png', 'https://www.streak.com/build/images/composeOverflowToggle.png', 'https://www.inboxsdk.com/images/logo-red.png'];
 
 function imageTest(url) {
-  return new _promise2.default(function (resolve, reject) {
+  return new _promise["default"](function (resolve) {
     var img = document.createElement('img');
+
     img.onload = function () {
       resolve(true);
     };
+
     img.onloadend = img.onerror = function () {
       resolve(false);
     };
-    img.src = (0, _cachebustUrl2.default)(url);
+
+    img.src = (0, _cachebustUrl["default"])(url);
   });
 }
 
 function connectivityTest() {
-  return _promise2.default.all(URLS.map(function (url) {
+  return _promise["default"].all(URLS.map(function (url) {
     return imageTest(url).then(function (success) {
       return [url, success];
     });
   })).then(function (results) {
-    return (0, _fromPairs2.default)(results);
+    return (0, _fromPairs["default"])(results);
   });
 }
-module.exports = exports['default'];
 
-},{"./cachebust-url":53,"babel-runtime/core-js/promise":4,"lodash/fromPairs":45}],55:[function(require,module,exports){
+},{"./cachebust-url":62,"@babel/runtime-corejs2/core-js/object/define-property":4,"@babel/runtime-corejs2/core-js/promise":6,"@babel/runtime-corejs2/helpers/interopRequireDefault":7,"lodash/fromPairs":54}],64:[function(require,module,exports){
 (function (global){
-'use strict';
+"use strict";
 
-Object.defineProperty(exports, "__esModule", {
+var _Object$defineProperty = require("@babel/runtime-corejs2/core-js/object/define-property");
+
+_Object$defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = getExtensionId;
+
+exports["default"] = getExtensionId;
+
 function getExtensionId() {
-  if (global.chrome && global.chrome.extension && global.chrome.extension.getURL) {
-    return global.chrome.extension.getURL('');
+  var chrome = global.chrome;
+
+  if (chrome && chrome.extension && chrome.extension.getURL) {
+    return chrome.extension.getURL('');
   }
+
   return null;
 }
-module.exports = exports['default'];
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],56:[function(require,module,exports){
-(function (global){
-'use strict';
+},{"@babel/runtime-corejs2/core-js/object/define-property":4}],65:[function(require,module,exports){
+"use strict";
 
-Object.defineProperty(exports, "__esModule", {
+var _interopRequireDefault = require("@babel/runtime-corejs2/helpers/interopRequireDefault");
+
+var _Object$defineProperty = require("@babel/runtime-corejs2/core-js/object/define-property");
+
+_Object$defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = getSessionId;
+
+exports["default"] = getSessionId;
+
+var _now = _interopRequireDefault(require("@babel/runtime-corejs2/core-js/date/now"));
+
 function getSessionId() {
-  var attrValue = global.document && document.documentElement.getAttribute('data-inboxsdk-session-id');
+  var attrValue = typeof document !== 'undefined' && document.documentElement.getAttribute('data-inboxsdk-session-id');
+
   if (typeof attrValue === 'string') {
     return attrValue;
   } else {
-    var sessionId = Date.now() + '-' + Math.random();
-    if (global.document) {
+    var sessionId = (0, _now["default"])() + '-' + Math.random();
+
+    if (typeof document !== 'undefined') {
       document.documentElement.setAttribute('data-inboxsdk-session-id', sessionId);
     }
+
     return sessionId;
   }
 }
-module.exports = exports['default'];
 
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-
-},{}],57:[function(require,module,exports){
+},{"@babel/runtime-corejs2/core-js/date/now":1,"@babel/runtime-corejs2/core-js/object/define-property":4,"@babel/runtime-corejs2/helpers/interopRequireDefault":7}],66:[function(require,module,exports){
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
+var _Object$defineProperty = require("@babel/runtime-corejs2/core-js/object/define-property");
+
+_Object$defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = getStackTrace;
+
+exports["default"] = getStackTrace;
+
 function getStackTrace() {
-  var err = new Error("Stack saver");
-  // Cut the first two lines off. The first line has the error name, and the
+  var err = new Error('Stack saver'); // Cut the first two lines off. The first line has the error name, and the
   // second line is inside this function.
-  return ("" + err.stack).replace(/^([^\n]*\n){2}/, '');
+
+  return ('' + err.stack).replace(/^([^\n]*\n){2}/, '');
 }
-module.exports = exports["default"];
 
-},{}],58:[function(require,module,exports){
+},{"@babel/runtime-corejs2/core-js/object/define-property":4}],67:[function(require,module,exports){
 (function (global){
-'use strict';
+"use strict";
 
-Object.defineProperty(exports, "__esModule", {
+var _interopRequireDefault = require("@babel/runtime-corejs2/helpers/interopRequireDefault");
+
+var _Object$defineProperty = require("@babel/runtime-corejs2/core-js/object/define-property");
+
+_Object$defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _promise = require('babel-runtime/core-js/promise');
+exports["default"] = loadScript;
 
-var _promise2 = _interopRequireDefault(_promise);
+var _promise = _interopRequireDefault(require("@babel/runtime-corejs2/core-js/promise"));
 
-exports.default = loadScript;
+var _once = _interopRequireDefault(require("lodash/once"));
 
-var _connectivityTest = require('./connectivity-test');
+var _connectivityTest = _interopRequireDefault(require("./connectivity-test"));
 
-var _connectivityTest2 = _interopRequireDefault(_connectivityTest);
+var _logError = _interopRequireDefault(require("./log-error"));
 
-var _logError = require('./log-error');
+var _ajax = _interopRequireDefault(require("./ajax"));
 
-var _logError2 = _interopRequireDefault(_logError);
+var _pdelay = _interopRequireDefault(require("pdelay"));
 
-var _ajax = require('./ajax');
-
-var _ajax2 = _interopRequireDefault(_ajax);
-
-var _pdelay = require('pdelay');
-
-var _pdelay2 = _interopRequireDefault(_pdelay);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var once = require('lodash/once');
-
-
-var isContentScript = once(function () {
+var isContentScript = (0, _once["default"])(function () {
   if (global.chrome && global.chrome.extension) return true;
   if (global.safari && global.safari.extension) return true;
   return false;
@@ -1011,13 +1108,14 @@ var isContentScript = once(function () {
 function addScriptToPage(url, cors) {
   var script = document.createElement('script');
   script.type = 'text/javascript';
+
   if (cors) {
     script.crossOrigin = 'anonymous';
   }
 
-  var promise = new _promise2.default(function (resolve, reject) {
+  var promise = new _promise["default"](function (resolve, reject) {
     script.addEventListener('error', function (event) {
-      reject(event.error || new Error(event.message || "Load failure: " + url, event.filename, event.lineno, event.column));
+      reject(event.error || new Error(event.message || 'Load failure: ' + url, event.filename, event.lineno, event.column));
     }, false);
     script.addEventListener('load', function () {
       // Make sure the script has a moment to execute before this promise
@@ -1025,95 +1123,99 @@ function addScriptToPage(url, cors) {
       setTimeout(resolve, 1);
     }, false);
   });
-
   script.src = url;
+  if (!document.head) throw new Error('missing head');
   document.head.appendChild(script);
   return promise;
 }
 
 function loadScript(url, opts) {
-  var pr = void 0;
+  var pr;
+
   if (isContentScript()) {
-    (function () {
-      var attempt = function attempt(retryNum, lastErr) {
-        if (retryNum > 3) {
-          throw lastErr || new Error("Ran out of loadScript attempts for unknown reason");
+    var attempt = function attempt(retryNum, lastErr) {
+      if (retryNum > 3) {
+        throw lastErr || new Error('Ran out of loadScript attempts for unknown reason');
+      }
+
+      return (0, _ajax["default"])({
+        url: url,
+        cachebust: retryNum > 0
+      }).then(function (response) {
+        // Q: Why put the code into a function before executing it instead of
+        //    evaling it immediately?
+        // A: Chrome would execute it before applying any remembered
+        //    breakpoints.
+        // Q: Why not just use `... = new Function(...)`?
+        // A: The sourcemaps would be off by one line in Chrome because of
+        //    https://code.google.com/p/chromium/issues/detail?id=109362
+        // Q: indirectEval?
+        // A: Using the eval value rather than the eval keyword causes the
+        //    code passed to it to be run in the global scope instead of the
+        //    current scope. (Seriously, it's a javascript thing.)
+        var originalCode = response.text;
+        var indirectEval = eval;
+        var codeParts = [];
+
+        if (opts && opts.disableSourceMappingURL) {
+          // Don't remove a data: URI sourcemap (used in dev)
+          codeParts.push(originalCode.replace(/\/\/# sourceMappingURL=(?!data:)[^\n]*\n?$/, ''));
+        } else {
+          codeParts.push(originalCode);
         }
 
-        return (0, _ajax2.default)({
-          url: url, cachebust: retryNum > 0
-        }).then(function (response) {
-          // Q: Why put the code into a function before executing it instead of
-          //    evaling it immediately?
-          // A: Chrome would execute it before applying any remembered
-          //    breakpoints.
-          // Q: Why not just use `... = new Function(...)`?
-          // A: The sourcemaps would be off by one line in Chrome because of
-          //    https://code.google.com/p/chromium/issues/detail?id=109362
-          // Q: indirectEval?
-          // A: Using the eval value rather than the eval keyword causes the
-          //    code passed to it to be run in the global scope instead of the
-          //    current scope. (Seriously, it's a javascript thing.)
-          var originalCode = response.text;
-          var indirectEval = eval;
+        if (!opts || !opts.nowrap) {
+          codeParts.unshift('(function(){');
+          codeParts.push('\n});');
+        }
 
-          var codeParts = [];
-          if (opts && opts.disableSourceMappingURL) {
-            // Don't remove a data: URI sourcemap (used in dev)
-            codeParts.push(originalCode.replace(/\/\/# sourceMappingURL=(?!data:)[^\n]*\n?$/, ''));
-          } else {
-            codeParts.push(originalCode);
-          }
+        codeParts.push('\n//# sourceURL=' + url + '\n');
+        var codeToRun = codeParts.join('');
+        var program;
 
-          if (!opts || !opts.nowrap) {
-            codeParts.unshift("(function(){");
-            codeParts.push("\n});");
-          }
+        try {
+          program = indirectEval(codeToRun);
+        } catch (err) {
+          if (err && err.name === 'SyntaxError') {
+            (0, _logError["default"])(err, {
+              retryNum: retryNum,
+              caughtSyntaxError: true,
+              url: url,
+              message: "SyntaxError in loading ".concat(url, ". Did we not load it fully? Trying again...")
+            }, {});
+            return (0, _pdelay["default"])(5000).then(function () {
+              return attempt(retryNum + 1, err);
+            });
+          } // SyntaxErrors are the only errors that can happen during eval that we
+          // retry because sometimes AppEngine doesn't serve the full javascript.
+          // No other error is retried because other errors aren't likely to be
+          // transient.
 
-          codeParts.push("\n//# sourceURL=" + url + "\n");
 
-          var codeToRun = codeParts.join('');
-          var program = void 0;
-          try {
-            program = indirectEval(codeToRun);
-          } catch (err) {
-            if (err && err.name === 'SyntaxError') {
-              (0, _logError2.default)(err, {
-                retryNum: retryNum,
-                caughtSyntaxError: true,
-                url: url,
-                message: 'SyntaxError in loading ' + url + '. Did we not load it fully? Trying again...'
-              }, {});
-              return (0, _pdelay2.default)(5000).then(function () {
-                return attempt(retryNum + 1, err);
-              });
-            }
-            // SyntaxErrors are the only errors that can happen during eval that we
-            // retry because sometimes AppEngine doesn't serve the full javascript.
-            // No other error is retried because other errors aren't likely to be
-            // transient.
-            throw err;
-          }
-          if (!opts || !opts.nowrap) {
-            program();
-          }
-        });
-      };
+          throw err;
+        }
 
-      pr = attempt(0, null);
-    })();
+        if (!opts || !opts.nowrap) {
+          program.call(global);
+        }
+      });
+    };
+
+    pr = attempt(0, null);
   } else {
     // Try to add script as CORS first so we can get error stack data from it.
-    pr = addScriptToPage(url, true).catch(function () {
+    pr = addScriptToPage(url, true)["catch"](function () {
       // Only show the warning if we successfully load the script on retry.
       return addScriptToPage(url, false).then(function () {
-        console.warn("Script " + url + " included without CORS headers. Error logs might be censored by the browser.");
+        // eslint-disable-next-line no-console
+        console.warn('Script ' + url + ' included without CORS headers. Error logs might be censored by the browser.');
       });
     });
   }
-  pr.catch(function (err) {
-    return (0, _connectivityTest2.default)().then(function (connectivityTestResults) {
-      (0, _logError2.default)(err, {
+
+  pr["catch"](function (err) {
+    return (0, _connectivityTest["default"])().then(function (connectivityTestResults) {
+      (0, _logError["default"])(err, {
         url: url,
         connectivityTestResults: connectivityTestResults,
         status: err && err.status,
@@ -1124,74 +1226,60 @@ function loadScript(url, opts) {
   });
   return pr;
 }
-module.exports = exports['default'];
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"./ajax":52,"./connectivity-test":54,"./log-error":59,"babel-runtime/core-js/promise":4,"lodash/once":47,"pdelay":48}],59:[function(require,module,exports){
+},{"./ajax":61,"./connectivity-test":63,"./log-error":68,"@babel/runtime-corejs2/core-js/object/define-property":4,"@babel/runtime-corejs2/core-js/promise":6,"@babel/runtime-corejs2/helpers/interopRequireDefault":7,"lodash/once":56,"pdelay":57}],68:[function(require,module,exports){
 (function (global){
-'use strict';
+"use strict";
 
-Object.defineProperty(exports, "__esModule", {
+var _interopRequireDefault = require("@babel/runtime-corejs2/helpers/interopRequireDefault");
+
+var _Object$defineProperty2 = require("@babel/runtime-corejs2/core-js/object/define-property");
+
+_Object$defineProperty2(exports, "__esModule", {
   value: true
 });
 
-var _keys = require('babel-runtime/core-js/object/keys');
+exports["default"] = logError;
 
-var _keys2 = _interopRequireDefault(_keys);
+var _defineProperty = _interopRequireDefault(require("@babel/runtime-corejs2/core-js/object/define-property"));
 
-var _stringify = require('babel-runtime/core-js/json/stringify');
+var _now = _interopRequireDefault(require("@babel/runtime-corejs2/core-js/date/now"));
 
-var _stringify2 = _interopRequireDefault(_stringify);
+var _keys = _interopRequireDefault(require("@babel/runtime-corejs2/core-js/object/keys"));
 
-exports.default = logError;
+var _stringify = _interopRequireDefault(require("@babel/runtime-corejs2/core-js/json/stringify"));
 
-var _ajax = require('./ajax');
+var _ajax = _interopRequireDefault(require("./ajax"));
 
-var _ajax2 = _interopRequireDefault(_ajax);
+var _rateLimit = _interopRequireDefault(require("./rate-limit"));
 
-var _rateLimit = require('./rate-limit');
+var _getStackTrace = _interopRequireDefault(require("./get-stack-trace"));
 
-var _rateLimit2 = _interopRequireDefault(_rateLimit);
+var _getExtensionId = _interopRequireDefault(require("./get-extension-id"));
 
-var _getStackTrace = require('./get-stack-trace');
+var _getSessionId = _interopRequireDefault(require("./get-session-id"));
 
-var _getStackTrace2 = _interopRequireDefault(_getStackTrace);
+var _version = require("./version");
 
-var _getExtensionId = require('./get-extension-id');
+var _isObject = _interopRequireDefault(require("lodash/isObject"));
 
-var _getExtensionId2 = _interopRequireDefault(_getExtensionId);
-
-var _getSessionId = require('./get-session-id');
-
-var _getSessionId2 = _interopRequireDefault(_getSessionId);
-
-var _version = require('./version');
-
-var _isObject = require('lodash/isObject');
-
-var _isObject2 = _interopRequireDefault(_isObject);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var sessionId = (0, _getSessionId2.default)();
-
-// code inside the platform-implementation should use logger.js instead of
+var sessionId = (0, _getSessionId["default"])(); // code inside the platform-implementation should use logger.js instead of
 // interacting with this directly!
 
-
 function logError(err, details, context) {
-  if (!global.document) {
+  if (typeof document === 'undefined') {
     // In tests, just throw the error.
     throw err;
-  }
-
-  var args = arguments;
-
-  // It's important that we can't throw an error or leave a rejected promise
+  } // It's important that we can't throw an error or leave a rejected promise
   // unheard while logging an error in order to make sure to avoid ever
   // getting into an infinite loop of reporting uncaught errors.
+
+
   try {
+    var _console;
+
     if (haveWeSeenThisErrorAlready(err)) {
       return;
     } else {
@@ -1199,54 +1287,64 @@ function logError(err, details, context) {
     }
 
     if (!(err instanceof Error)) {
+      // eslint-disable-next-line no-console
       console.warn('First parameter to Logger.error was not an error object:', err);
-      err = new Error("Logger.error called with non-error: " + err);
+      err = new Error('Logger.error called with non-error: ' + err);
       markErrorAsSeen(err);
     }
-    var appId = context.appId,
-        appIds = context.appIds,
+
+    var appIds = context.appIds,
         implVersion = context.implVersion,
+        isUsingSyncAPI = context.isUsingSyncAPI,
+        isUsingMaterialGmailUI = context.isUsingMaterialGmailUI,
         userEmailHash = context.userEmailHash;
-
-    var _loaderVersion = context.loaderVersion || _version.BUILD_VERSION;
-    var _sentByApp = !!context.sentByApp;
-
+    var loaderVersion = context.loaderVersion || _version.BUILD_VERSION;
+    var sentByApp = !!context.sentByApp;
     var errorProperties = {};
+
     for (var name in err) {
       if (Object.prototype.hasOwnProperty.call(err, name)) {
         try {
           var value = err[name];
-          (0, _stringify2.default)(value);
+          (0, _stringify["default"])(value);
           errorProperties[name] = value;
-        } catch (err) {
-          // ignore
+        } catch (err) {// ignore
         }
       }
     }
-    if ((0, _keys2.default)(errorProperties).length > 0) {
-      details = { errorProperties: errorProperties, details: details };
-    }
 
-    // Might not have been passed a useful error object with a stack, so get
+    if ((0, _keys["default"])(errorProperties).length > 0) {
+      details = {
+        errorProperties: errorProperties,
+        details: details
+      };
+    } // Might not have been passed a useful error object with a stack, so get
     // our own current stack just in case.
-    var nowStack = (0, _getStackTrace2.default)();
 
-    var stuffToLog = ["Error logged:", err];
+
+    var nowStack = (0, _getStackTrace["default"])();
+    var stuffToLog = ['Error logged:', err];
+
     if (err && err.stack) {
-      stuffToLog = stuffToLog.concat(["\n\nOriginal error stack:\n" + err.stack]);
+      stuffToLog.push('\n\nOriginal error stack:\n' + err.stack);
     }
-    stuffToLog = stuffToLog.concat(["\n\nError logged from:\n" + nowStack]);
-    if (details) {
-      stuffToLog = stuffToLog.concat(["\n\nError details:", details]);
-    }
-    stuffToLog = stuffToLog.concat(["\n\nExtension App Ids:", (0, _stringify2.default)(appIds, null, 2)]);
-    stuffToLog = stuffToLog.concat(["\nSent by App:", _sentByApp]);
-    stuffToLog = stuffToLog.concat(["\nSession Id:", sessionId]);
-    stuffToLog = stuffToLog.concat(["\nExtension Id:", (0, _getExtensionId2.default)()]);
-    stuffToLog = stuffToLog.concat(["\nInboxSDK Loader Version:", _loaderVersion]);
-    stuffToLog = stuffToLog.concat(["\nInboxSDK Implementation Version:", implVersion]);
 
-    console.error.apply(console, stuffToLog);
+    stuffToLog.push('\n\nError logged from:\n' + nowStack);
+
+    if (details) {
+      stuffToLog.push('\n\nError details:', details);
+    }
+
+    stuffToLog.push('\n\nExtension App Ids:', (0, _stringify["default"])(appIds, null, 2));
+    stuffToLog.push('\nSent by App:', sentByApp);
+    stuffToLog.push('\nSession Id:', sessionId);
+    stuffToLog.push('\nExtension Id:', (0, _getExtensionId["default"])());
+    stuffToLog.push('\nInboxSDK Loader Version:', loaderVersion);
+    stuffToLog.push('\nInboxSDK Implementation Version:', implVersion);
+    stuffToLog.push('\nIs Using Sync API:', isUsingSyncAPI);
+    stuffToLog.push('\nIs Using Material Gmail UI:', isUsingMaterialGmailUI); // eslint-disable-next-line no-console
+
+    (_console = console).error.apply(_console, stuffToLog);
 
     var report = {
       message: err && err.message || err,
@@ -1254,16 +1352,17 @@ function logError(err, details, context) {
       loggedFrom: nowStack,
       details: details,
       appIds: appIds,
-      sentByApp: _sentByApp,
+      sentByApp: sentByApp,
       sessionId: sessionId,
       emailHash: userEmailHash,
-      extensionId: (0, _getExtensionId2.default)(),
-      loaderVersion: _loaderVersion,
+      extensionId: (0, _getExtensionId["default"])(),
+      loaderVersion: loaderVersion,
       implementationVersion: implVersion,
+      isUsingSyncAPI: isUsingSyncAPI,
+      isUsingMaterialGmailUI: isUsingMaterialGmailUI,
       origin: document.location.origin,
-      timestamp: Date.now() * 1000
+      timestamp: (0, _now["default"])() * 1000
     };
-
     sendError(report);
 
     if (document.documentElement.getAttribute('inboxsdk-emit-error-event') === 'true') {
@@ -1275,12 +1374,12 @@ function logError(err, details, context) {
           stack: err && err.stack,
           loggedFrom: nowStack,
           details: details,
-          sentByApp: _sentByApp
+          sentByApp: sentByApp
         }
       }));
     }
   } catch (err2) {
-    tooManyErrors(err2, args);
+    tooManyErrors(err2, [err, details, context]);
   }
 }
 
@@ -1288,10 +1387,11 @@ var _extensionSeenErrors = function () {
   // Safari <9 doesn't have WeakSet and we don't want to pull in the polyfill,
   // so we make one out of a WeakMap.
   if (!global.__inboxsdk_extensionSeenErrors && global.WeakMap) {
-    Object.defineProperty(global, '__inboxsdk_extensionSeenErrors', {
+    (0, _defineProperty["default"])(global, '__inboxsdk_extensionSeenErrors', {
       value: new global.WeakMap()
     });
   }
+
   return {
     has: function has(e) {
       if (global.__inboxsdk_extensionSeenErrors) {
@@ -1300,6 +1400,7 @@ var _extensionSeenErrors = function () {
         try {
           return !!e.__inboxsdk_extensionHasSeenError;
         } catch (err) {
+          // eslint-disable-next-line no-console
           console.error(err);
           return false;
         }
@@ -1315,10 +1416,11 @@ var _extensionSeenErrors = function () {
         global.__inboxsdk_extensionSeenErrors.add(e);
       } else {
         try {
-          Object.defineProperty(e, '__inboxsdk_extensionHasSeenError', {
+          (0, _defineProperty["default"])(e, '__inboxsdk_extensionHasSeenError', {
             value: true
           });
         } catch (err) {
+          // eslint-disable-next-line no-console
           console.error(err);
         }
       }
@@ -1327,135 +1429,155 @@ var _extensionSeenErrors = function () {
 }();
 
 function haveWeSeenThisErrorAlready(error) {
-  if ((0, _isObject2.default)(error)) {
+  if ((0, _isObject["default"])(error)) {
     return _extensionSeenErrors.has(error);
   }
+
   return false;
 }
 
 function markErrorAsSeen(error) {
-  if ((0, _isObject2.default)(error)) {
+  if ((0, _isObject["default"])(error)) {
     _extensionSeenErrors.add(error);
   }
-}
+} // Only let 10 errors be sent per minute.
 
-// Only let 10 errors be sent per minute.
-var sendError = (0, _rateLimit2.default)(function (report) {
-  var args = arguments;
 
+var sendError = (0, _rateLimit["default"])(function (report) {
   try {
-    (0, _ajax2.default)({
+    (0, _ajax["default"])({
       url: 'https://www.inboxsdk.com/api/v2/errors',
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      data: (0, _stringify2.default)(report)
-    }).catch(function (err2) {
-      tooManyErrors(err2, args);
+      data: (0, _stringify["default"])(report)
+    })["catch"](function (err2) {
+      tooManyErrors(err2, [report]);
     });
   } catch (err2) {
-    tooManyErrors(err2, args);
+    tooManyErrors(err2, [report]);
   }
 }, 60 * 1000, 10);
 
 function tooManyErrors(err2, originalArgs) {
-  console.error("ERROR REPORTING ERROR", err2);
-  console.error("ORIGINAL ERROR", originalArgs);
+  // eslint-disable-next-line no-console
+  console.error('ERROR REPORTING ERROR', err2); // eslint-disable-next-line no-console
+
+  console.error('ORIGINAL ERROR', originalArgs);
 }
-module.exports = exports['default'];
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"./ajax":52,"./get-extension-id":55,"./get-session-id":56,"./get-stack-trace":57,"./rate-limit":60,"./version":61,"babel-runtime/core-js/json/stringify":1,"babel-runtime/core-js/object/keys":3,"lodash/isObject":46}],60:[function(require,module,exports){
+},{"./ajax":61,"./get-extension-id":64,"./get-session-id":65,"./get-stack-trace":66,"./rate-limit":69,"./version":70,"@babel/runtime-corejs2/core-js/date/now":1,"@babel/runtime-corejs2/core-js/json/stringify":2,"@babel/runtime-corejs2/core-js/object/define-property":4,"@babel/runtime-corejs2/core-js/object/keys":5,"@babel/runtime-corejs2/helpers/interopRequireDefault":7,"lodash/isObject":55}],69:[function(require,module,exports){
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
+var _interopRequireDefault = require("@babel/runtime-corejs2/helpers/interopRequireDefault");
+
+var _Object$defineProperty = require("@babel/runtime-corejs2/core-js/object/define-property");
+
+_Object$defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = rateLimit;
 
+exports["default"] = rateLimit;
+
+var _now = _interopRequireDefault(require("@babel/runtime-corejs2/core-js/date/now"));
 
 // Returns a wrapped version of the function which throws an exception if it's
 // called more than count times within period amount of time.
 function rateLimit(fn, period, count) {
   var calls = [];
   return function () {
-    var now = Date.now();
+    var now = (0, _now["default"])();
     calls = calls.filter(function (time) {
       return time > now - period;
     });
+
     if (calls.length >= count) {
-      throw new Error("Function rate limit exceeded");
+      throw new Error('Function rate limit exceeded');
     }
+
     calls.push(now);
-    return fn.apply(this, arguments);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return fn.apply(this, args);
   };
 }
-module.exports = exports["default"];
 
-},{}],61:[function(require,module,exports){
+},{"@babel/runtime-corejs2/core-js/date/now":1,"@babel/runtime-corejs2/core-js/object/define-property":4,"@babel/runtime-corejs2/helpers/interopRequireDefault":7}],70:[function(require,module,exports){
 "use strict";
 
+var _Object$defineProperty = require("@babel/runtime-corejs2/core-js/object/define-property");
+
+_Object$defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.BUILD_VERSION = void 0;
 // This is in its own file so that updates to the version value don't cause a
 // reload of everything.
-
-exports.BUILD_VERSION = "0.7.24-1484787998857-c248fbb55be579d3";
+var BUILD_VERSION = "0.7.25-1559685862664-5d64fc572c9e024a";
+exports.BUILD_VERSION = BUILD_VERSION;
 
 if (module.hot) {
   module.hot.accept();
 }
 
-},{}],62:[function(require,module,exports){
+},{"@babel/runtime-corejs2/core-js/object/define-property":4}],71:[function(require,module,exports){
 (function (global){
 "use strict";
 
-function checkRequirements(opts) {
-  if (!opts.TEMPORARY_INTERNAL_skipWeakMapRequirement && !global.WeakMap) {
-    throw new Error("Browser does not support WeakMap");
-  }
-}
+var _Object$defineProperty = require("@babel/runtime-corejs2/core-js/object/define-property");
 
-module.exports = checkRequirements;
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-
-},{}],63:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
+_Object$defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _assign = require('babel-runtime/core-js/object/assign');
+exports["default"] = checkRequirements;
 
-var _assign2 = _interopRequireDefault(_assign);
+function checkRequirements(opts) {
+  if (!opts.TEMPORARY_INTERNAL_skipWeakMapRequirement && !global.WeakMap) {
+    throw new Error('Browser does not support WeakMap');
+  }
+}
 
-var _logError = require('../common/log-error');
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-var _logError2 = _interopRequireDefault(_logError);
+},{"@babel/runtime-corejs2/core-js/object/define-property":4}],72:[function(require,module,exports){
+(function (global){
+"use strict";
 
-var _platformImplementationLoader = require('./loading/platform-implementation-loader');
+var _interopRequireDefault = require("@babel/runtime-corejs2/helpers/interopRequireDefault");
 
-var _platformImplementationLoader2 = _interopRequireDefault(_platformImplementationLoader);
+var _Object$defineProperty = require("@babel/runtime-corejs2/core-js/object/define-property");
 
-var _checkRequirements = require('./check-requirements');
+_Object$defineProperty(exports, "__esModule", {
+  value: true
+});
 
-var _checkRequirements2 = _interopRequireDefault(_checkRequirements);
+exports["default"] = void 0;
 
-var _version = require('../common/version');
+var _assign = _interopRequireDefault(require("@babel/runtime-corejs2/core-js/object/assign"));
 
-var _loadScript = require('../common/load-script');
+var _logError = _interopRequireDefault(require("../common/log-error"));
 
-var _loadScript2 = _interopRequireDefault(_loadScript);
+var _platformImplementationLoader = _interopRequireDefault(require("./loading/platform-implementation-loader"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _checkRequirements = _interopRequireDefault(require("./check-requirements"));
+
+var _version = require("../common/version");
+
+var _loadScript = _interopRequireDefault(require("../common/load-script"));
 
 var InboxSDK = {
   LOADER_VERSION: _version.BUILD_VERSION,
-  loadScript: _loadScript2.default,
+  loadScript: _loadScript["default"],
   load: function load(version, appId, opts) {
-    opts = (0, _assign2.default)({
+    opts = (0, _assign["default"])({
       // defaults
       globalErrorLogging: true
     }, opts, {
@@ -1464,102 +1586,103 @@ var InboxSDK = {
       VERSION: InboxSDK.LOADER_VERSION,
       REQUESTED_API_VERSION: version
     });
-
-    (0, _checkRequirements2.default)(opts);
-
-    return _platformImplementationLoader2.default.load(appId, opts);
+    (0, _checkRequirements["default"])(opts);
+    return _platformImplementationLoader["default"].load(appId, opts);
   }
 };
+var pageOrigin = "production" === 'test' && global.__test_origin || document.location.origin;
 
-if (['https://mail.google.com', 'https://inbox.google.com'].indexOf(document.location.origin) != -1) {
-  _platformImplementationLoader2.default.preload();
+if (['https://mail.google.com', 'https://inbox.google.com'].indexOf(pageOrigin) != -1) {
+  _platformImplementationLoader["default"].preload();
 }
 
-exports.default = InboxSDK;
-module.exports = exports['default'];
+var _default = InboxSDK;
+exports["default"] = _default;
 
-},{"../common/load-script":58,"../common/log-error":59,"../common/version":61,"./check-requirements":62,"./loading/platform-implementation-loader":64,"babel-runtime/core-js/object/assign":2}],64:[function(require,module,exports){
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+
+},{"../common/load-script":67,"../common/log-error":68,"../common/version":70,"./check-requirements":71,"./loading/platform-implementation-loader":73,"@babel/runtime-corejs2/core-js/object/assign":3,"@babel/runtime-corejs2/core-js/object/define-property":4,"@babel/runtime-corejs2/helpers/interopRequireDefault":7}],73:[function(require,module,exports){
 (function (global){
-'use strict';
+"use strict";
 
-Object.defineProperty(exports, "__esModule", {
+var _interopRequireDefault = require("@babel/runtime-corejs2/helpers/interopRequireDefault");
+
+var _Object$defineProperty = require("@babel/runtime-corejs2/core-js/object/define-property");
+
+_Object$defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _promise = require('babel-runtime/core-js/promise');
+exports["default"] = void 0;
 
-var _promise2 = _interopRequireDefault(_promise);
+var _promise = _interopRequireDefault(require("@babel/runtime-corejs2/core-js/promise"));
 
-var _loadScript = require('../../common/load-script');
+var _once = _interopRequireDefault(require("lodash/once"));
 
-var _loadScript2 = _interopRequireDefault(_loadScript);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var once = require('lodash/once');
-
+var _loadScript = _interopRequireDefault(require("../../common/load-script"));
 
 var PlatformImplementationLoader = {
   load: function load(appId, opts) {
-    return _promise2.default.resolve().then(function () {
+    return _promise["default"].resolve().then(function () {
       if (!global.__InboxSDKImpLoader) {
         return PlatformImplementationLoader._loadScript().then(function () {
           if (!global.__InboxSDKImpLoader) {
-            throw new Error("Implementation file did not load correctly");
+            throw new Error('Implementation file did not load correctly');
           }
         });
       }
     }).then(function () {
-      return global.__InboxSDKImpLoader.load("0.1", appId, opts);
+      return global.__InboxSDKImpLoader.load('0.1', appId, opts);
     });
   },
-
-
-  _loadScript: once(function () {
+  _loadScript: (0, _once["default"])(function () {
     var disableSourceMappingURL = true;
+
     if (window.localStorage) {
       try {
         disableSourceMappingURL = localStorage.getItem('inboxsdk__enable_sourcemap') !== 'true';
       } catch (err) {
-        console.error(err);
+        console.error(err); //eslint-disable-line no-console
       }
     }
 
-    return (0, _loadScript2.default)('https://www.inboxsdk.com/build/platform-implementation.js', {
-      nowrap: true, // platform-implementation has no top-level vars so no need for function wrapping
+    return (0, _loadScript["default"])("https://www.inboxsdk.com/build/platform-implementation.js", {
+      nowrap: true,
+      // platform-implementation has no top-level vars so no need for function wrapping
       disableSourceMappingURL: disableSourceMappingURL
     });
   }),
-
   preload: function preload() {
     // Prime the load by calling it and letting the promise be memoized.
     this._loadScript();
   }
 };
-
-exports.default = PlatformImplementationLoader;
-module.exports = exports['default'];
+var _default = PlatformImplementationLoader;
+exports["default"] = _default;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"../../common/load-script":58,"babel-runtime/core-js/promise":4,"lodash/once":47}],65:[function(require,module,exports){
+},{"../../common/load-script":67,"@babel/runtime-corejs2/core-js/object/define-property":4,"@babel/runtime-corejs2/core-js/promise":6,"@babel/runtime-corejs2/helpers/interopRequireDefault":7,"lodash/once":56}],74:[function(require,module,exports){
 "use strict";
 
+/* eslint-disable flowtype/require-valid-file-annotation, no-undef */
 var oldDefine;
+
 try {
-  if (typeof define !== "undefined" && define && define.amd) {
+  if (typeof define !== 'undefined' && define && define.amd) {
     // work around amd compatibility issue
     // https://groups.google.com/forum/#!msg/inboxsdk/U_bq82Exmwc/I3iIinxxCAAJ
     oldDefine = define;
     define = null;
-  }
-  // exposes main as a global for browsers
-  window.InboxSDK = require('./inboxsdk');
+  } // exposes main as a global for browsers
+
+
+  window.InboxSDK = require('./inboxsdk')["default"];
 } finally {
   if (oldDefine) {
     define = oldDefine;
   }
 }
 
-},{"./inboxsdk":63}]},{},[65])
+},{"./inboxsdk":72}]},{},[74])
 

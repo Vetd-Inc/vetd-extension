@@ -1,68 +1,59 @@
+/*! Vetd (the company that created this extension) is an accelerator-backed company (Village Global).
+ * We use the popular InboxSDK library (www.inboxsdk.com) also used by several large organizations: 
+ *   Dropbox (https://chrome.google.com/webstore/detail/dropbox-for-gmail-beta/dpdmhfocilnekecfjgimjdeckachfbec)
+ *   HubSpot (https://chrome.google.com/webstore/detail/hubspot-sales/oiiaigjnkhngdbnoookogelabohpglmd)
+ *   Stripe (https://chrome.google.com/webstore/detail/stripe-for-gmail/dhnddbohjigcdbcfjdngilgkdcbjjhna)
+ *   Giphy (https://chrome.google.com/webstore/detail/giphy-for-gmail/andgibkjiikabclfdkecpmdkfanpdapf)
+ *   Clearbit (https://chrome.google.com/webstore/detail/clearbit-connect-supercha/pmnhcgfcafcnkbengdcanjablaabjplo)
+ * The use of the library is similar to using other popular javascript libraries like jQuery and Underscore
+ *
+ * The library allows us to load our application code from our server providing our users with fast updates
+ * and the ability quickly respond to bugs.
+ */
 
-InboxSDK.loadScript('https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js')
-InboxSDK.loadScript('https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js')
+InboxSDK.load(2, 'sdk_vetd-extension_a96a1115ad').then(function(sdk){
 
-// Get an Inbox SDK App Id from here: https://www.inboxsdk.com/register
-InboxSDK.load('1.0', 'INBOX_SDK_APP_ID').then(function(sdk){
+  sdk.Toolbars.registerThreadButton({
+    title: "Forward to Vetd",
+    iconUrl: chrome.extension.getURL('icon.png'),
+    positions: ["THREAD"],
+    threadSection: "INBOX_STATE",
+    onClick: function(event) {
+      // console.log("selectedThreadViews: ",
+      //             event.selectedThreadViews,
+      //             "selectedThreadRowViews: ",
+      //             event.selectedThreadRowViews);
 
-  // the SDK has been loaded, now do something with it!
-  sdk.Compose.registerComposeViewHandler(function(composeView){
+      // console.log("getMessageViews: ",
+      //             event.selectedThreadViews[0].getMessageViews(),
+      //             "getMessageViewsAll: ",
+      //             event.selectedThreadViews[0].getMessageViewsAll());
 
-    // a compose view has come into existence, do something with it!
-    composeView.addButton({
-      title: "Vue Pipl Search",
-      iconUrl: chrome.extension.getURL('icon.png'),
-      onClick: function(event) {
-        sdk.Widgets.showModalView({
-          title: 'Vue Pipl Search',
-          'el': `<div id="vue-pipl-search"></div>`,
-        });
+      if (event.selectedThreadViews.length) {
+        let messageViews = event.selectedThreadViews[0].getMessageViews();
 
-        const vuePiplSearch = new Vue({
-          el: '#vue-pipl-search',
-          template: `
-            <div>
-              <template v-if="recipients.length">
-                <div v-if="person" style="text-align: center;">
-                  <h2 style="text-align: center">
-                    {{person.names[0].display}}
-                  </h2>
-                  <img :src="person.images[0].url" width="80px">
-                  <p v-if="person.jobs[0]">{{person.jobs[0].title}}</p>
-                </div>
-                <div v-else>
-                  Person was not found.
-                </div>
-              </template>
-              <div v-else>
-                Add an email recipient to search Pipl Api.
-              </div>
-            </div>
-          `,
+        if (messageViews.length) {
+          let messageView = messageViews[0];
 
-          data() {
-            return {
-              recipients: composeView.getToRecipients(),
-              person: null
-            }
-          },
+          messageView.getMessageIDAsync().then(messageId => {
+            let message = {
+              messageId: messageId,
+              bodyElement: messageView.getBodyElement(),
+              sender: messageView.getSender(),
+              dateString: messageView.getDateString()
+            };
 
-          created() {
-            if (this.recipients.length) {
-              this.loading = true
+            console.log(message);
 
-              // Get a Pipl Sample Key here: https://pipl.com/api/demo
-              axios.get(`https://api.pipl.com/search/v5/?email=${this.recipients[0].emailAddress}&key=[PIPL_SAMPLE_KEY]`)
-                .then(res => {
-                  if (res.status === 200) {
-                    this.person = res.data.person;
-                    this.loading = false
-                  }
-                })
-            }
-          }
-        })
-      },
-    });
+            let butterBarMessage = sdk.ButterBar.showMessage({
+              text: "Conversation forwarded to Vetd.",
+              time: 7000
+            });
+
+            sdk.Router.goto(sdk.Router.NativeRouteIDs.INBOX);
+          });          
+        }
+      }
+    },
   });
 });
