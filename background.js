@@ -1,7 +1,11 @@
+// with trailing slash
+// const BASE_URL = "http://localhost:5080/";
+const BASE_URL = "https://app.vetd.com/";
+
 async function forwardMessage(message) {
   try {
     // TODO change forward URL
-    const response = await fetch(`http://localhost:5080/forward`, {
+    const response = await fetch(`${BASE_URL}forward`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',

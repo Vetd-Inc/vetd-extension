@@ -12,7 +12,7 @@
  */
 
 var clickButtonByTooltip = (tooltip) => {
-  let button = document.querySelectorAll('[data-tooltip="' + tooltip + '"]')[0];
+  let button = document.getElementsByClassName('inboxsdk__thread_toolbar_parent')[0].querySelectorAll('[data-tooltip="Archive"][role="button"]')[0];
   
   button.dispatchEvent(new MouseEvent('mousedown'));
   button.dispatchEvent(new MouseEvent('mouseup'));
@@ -63,22 +63,27 @@ InboxSDK.load(2, 'sdk_vetd-extension_a96a1115ad').then(function(sdk){
       //             event.selectedThreadViews[0].getMessageViewsAll());
 
       if (event.selectedThreadViews.length) {
-        let messageViews = event.selectedThreadViews[0].getMessageViews();
+        let threadView = event.selectedThreadViews[0];
+        let messageViews = threadView.getMessageViews();
 
         if (messageViews.length) {
           let messageView = messageViews[0];
 
           messageView.getMessageIDAsync().then(messageId => {
-            let message = {
-              messageId: messageId,
-              bodyElement: messageView.getBodyElement(),
-              sender: messageView.getSender(),
-              dateString: messageView.getDateString()
-            };
+            messageView.getRecipientsFull().then(recipients => {
+              let message = {
+                messageId: messageId,
+                recipients: recipients,
+                subject: threadView.getSubject(),
+                bodyElement: messageView.getBodyElement(),
+                sender: messageView.getSender(),
+                dateString: messageView.getDateString()
+              };
 
-            // show "Sending..." butterbar?
-            console.log(message);
-            forwardMessage(message);
+              // show "Sending..." butterbar?
+              console.log(message);
+              forwardMessage(message);
+            });
           });          
         }
       }
