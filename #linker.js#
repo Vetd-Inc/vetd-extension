@@ -1,0 +1,15 @@
+// deprecated DELETE FILE
+
+
+console.log("triggered");
+
+const setVetdUser = (user) => {
+  chrome.storage.sync.set({vetdUser: JSON.stringify(user)});
+};
+
+const vetdUser = {
+  someData: "cool value",
+  someIdMaybe: 8343322
+};
+
+setVetdUser(vetdUser);

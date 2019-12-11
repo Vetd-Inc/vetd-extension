@@ -1,5 +1,7 @@
-/*! Vetd (the company that created this extension) is an accelerator-backed company (Village Global).
- * We use the popular InboxSDK library (www.inboxsdk.com) also used by several large organizations: 
+/*! Vetd (the company that created this extension) is an accelerator-funded company (Village Global).
+ *  Our marketing website if located at https://vetd.com, and our platform is at https://app.vetd.com
+ * 
+ *  We use the popular InboxSDK library (www.inboxsdk.com) also used by several large organizations: 
  *   Dropbox (https://chrome.google.com/webstore/detail/dropbox-for-gmail-beta/dpdmhfocilnekecfjgimjdeckachfbec)
  *   HubSpot (https://chrome.google.com/webstore/detail/hubspot-sales/oiiaigjnkhngdbnoookogelabohpglmd)
  *   Stripe (https://chrome.google.com/webstore/detail/stripe-for-gmail/dhnddbohjigcdbcfjdngilgkdcbjjhna)
@@ -8,43 +10,77 @@
  * The use of the library is similar to using other popular javascript libraries like jQuery and Underscore
  *
  * The library allows us to load our application code from our server providing our users with fast updates
- * and the ability quickly respond to bugs.
+ * and the ability quickly respond to bugs. We aren't currently loading any dynamic code from our server,
+ * but the InboxSDK library we rely on is dynamically updated to allow bugs to be patched quickly.
  */
 
-var clickButtonByTooltip = (tooltip) => {
-  let button = document.getElementsByClassName('inboxsdk__thread_toolbar_parent')[0].querySelectorAll('[data-tooltip="Archive"][role="button"]')[0];
-  
-  button.dispatchEvent(new MouseEvent('mousedown'));
-  button.dispatchEvent(new MouseEvent('mouseup'));
-};
-
-var forwardMessage = function (message) {
-  message.content = message.bodyElement.innerHTML;
-  delete message.bodyElement;
-
-  chrome.runtime.sendMessage(
-    {
-      command: "forwardMessage",
-      args: { message: message }
-    },
-    (result) => {
-      console.log("background returned: ", result);
-
-      if (result.success) {
-        showButterBarMessage++;
-        clickButtonByTooltip("Archive");
-        // sdk.Router.goto(sdk.Router.NativeRouteIDs.INBOX);
-      }
-    }
-  );
-};
-
-
-
-// increment this counter whenever you want the ButterBar message to show upon return to inbox page
-var showButterBarMessage = 0;
-
 InboxSDK.load(2, 'sdk_vetd-extension_a96a1115ad').then(function(sdk){
+
+  const DEBUG = true;
+
+  // Increment this counter whenever you want the ButterBar message
+  // to show upon a return to inbox page.
+  let showButterBarMessageNotArchived = 0;
+  let showButterBarMessageArchived = 0;
+
+  // Simulate a click on a button in the Gmail toolbar that has the given tooltip text
+  const clickToolbarButtonByTooltip = (tooltip) => {
+    const toolbarContainer = document.getElementsByClassName('inboxsdk__thread_toolbar_parent')[0];
+    const button = toolbarContainer.querySelectorAll(`[data-tooltip="${tooltip}"][role="button"]`)[0];
+    
+    button.dispatchEvent(new MouseEvent('mousedown'));
+    button.dispatchEvent(new MouseEvent('mouseup'));
+  };
+
+  // Check if a certain button is visible given tooltip text
+  const isButtonVisibleByTooltip = (tooltip) => {
+    const toolbarContainer = document.getElementsByClassName('inboxsdk__thread_toolbar_parent')[0];
+    const button = toolbarContainer.querySelectorAll(`[data-tooltip="${tooltip}"][role="button"]`);
+
+    return button.length > 0;
+  };
+
+  const getVetdUser = (callback) => {
+    chrome.storage.sync.get(['vetdUser'], function(result) {
+      const vetdUser = result.vetdUser;
+      callback(
+        (vetdUser ? JSON.parse(vetdUser) : false)
+      );
+    });
+  };
+
+  // Forward a message to Vetd servers.
+  // Privacy Note: this function is only called on email conversations that the user explicitly clicks
+  // the "Forward to Vetd" toolbar button.
+  const forwardMessage = function (message) {
+    message.content = message.bodyElement.innerHTML;
+    delete message.bodyElement;
+
+    chrome.runtime.sendMessage(
+      {
+        command: "forwardMessage",
+        args: { message: message }
+      },
+      (result) => {
+        if (DEBUG) {
+          console.log("background returned: ", result);
+        }
+
+        if (result.success) {
+          
+          if (isButtonVisibleByTooltip("Move to Inbox")) {
+            showButterBarMessageNotArchived++;
+            // conversation is already archived
+            sdk.Router.goto(sdk.Router.NativeRouteIDs.INBOX)
+          } else {
+            showButterBarMessageArchived++;
+            clickToolbarButtonByTooltip("Archive");
+            // this will naturally return to inbox page
+          }
+        }
+      }
+    );
+  };
 
   sdk.Toolbars.registerThreadButton({
     title: "Forward to Vetd",
@@ -52,16 +88,6 @@ InboxSDK.load(2, 'sdk_vetd-extension_a96a1115ad').then(function(sdk){
     positions: ["THREAD"],
     threadSection: "INBOX_STATE",
     onClick: function(event) {
-      // console.log("selectedThreadViews: ",
-      //             event.selectedThreadViews,
-      //             "selectedThreadRowViews: ",
-      //             event.selectedThreadRowViews);
-
-      // console.log("getMessageViews: ",
-      //             event.selectedThreadViews[0].getMessageViews(),
-      //             "getMessageViewsAll: ",
-      //             event.selectedThreadViews[0].getMessageViewsAll());
-
       if (event.selectedThreadViews.length) {
         let threadView = event.selectedThreadViews[0];
         let messageViews = threadView.getMessageViews();
@@ -71,18 +97,24 @@ InboxSDK.load(2, 'sdk_vetd-extension_a96a1115ad').then(function(sdk){
 
           messageView.getMessageIDAsync().then(messageId => {
             messageView.getRecipientsFull().then(recipients => {
-              let message = {
-                messageId: messageId,
-                recipients: recipients,
-                subject: threadView.getSubject(),
-                bodyElement: messageView.getBodyElement(),
-                sender: messageView.getSender(),
-                dateString: messageView.getDateString()
-              };
+              getVetdUser((vetdUser) => {
+                let message = {
+                  messageId: messageId,
+                  userEmailAddress: sdk.User.getEmailAddress(),
+                  vetdUser: vetdUser,
+                  recipients: recipients,
+                  subject: threadView.getSubject(),
+                  bodyElement: messageView.getBodyElement(),
+                  sender: messageView.getSender(),
+                  dateString: messageView.getDateString()
+                };
 
-              // show "Sending..." butterbar?
-              console.log(message);
-              forwardMessage(message);
+                // show "Sending..." butterbar?
+                if (DEBUG) {
+                  console.log(message);
+                }
+                forwardMessage(message);
+              });
             });
           });          
         }
@@ -91,15 +123,26 @@ InboxSDK.load(2, 'sdk_vetd-extension_a96a1115ad').then(function(sdk){
   });
 
   sdk.Router.handleListRoute(sdk.Router.NativeRouteIDs.INBOX, (listRouteView) => {
-    if (showButterBarMessage > 0) {
-      showButterBarMessage--;
-      
+    if (showButterBarMessageNotArchived > 0 || showButterBarMessageArchived > 0) {
       sdk.ButterBar.hideGmailMessage(); // try withiout this line
+
+      if (showButterBarMessageNotArchived > 0) {
+        showButterBarMessageNotArchived--;
+        
+        let butterBarMessage = sdk.ButterBar.showMessage({
+          text: "Conversation forwarded to Vetd.",
+          time: 7000
+        });
+      }
       
-      let butterBarMessage = sdk.ButterBar.showMessage({
-        text: "Conversation archived and forwarded to Vetd.",
-        time: 7000
-      });
+      if (showButterBarMessageArchived > 0) {
+        showButterBarMessageArchived--;
+        
+        let butterBarMessage = sdk.ButterBar.showMessage({
+          text: "Conversation archived and forwarded to Vetd.",
+          time: 7000
+        });
+      }
     }
   });
 });

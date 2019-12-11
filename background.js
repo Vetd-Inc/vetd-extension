@@ -4,7 +4,6 @@ const BASE_URL = "https://app.vetd.com/";
 
 async function forwardMessage(message) {
   try {
-    // TODO change forward URL
     const response = await fetch(`${BASE_URL}forward`, {
       method: 'POST',
       headers: {
@@ -31,3 +30,37 @@ chrome.runtime.onMessage.addListener(
   }
 );
 
+chrome.runtime.onMessageExternal.addListener(
+  function(request, sender, sendResponse) {
+    // TODO? additional security
+    // if (sender.url !== "substring domain?")
+    //   return; // don't allow this web page access
+    
+    if (request.command == "setVetdUser") {
+      chrome.storage.sync.set(
+        {
+          vetdUser: JSON.stringify(request.args.vetdUser)
+        },
+        () => {
+          sendResponse(true)
+        }
+      );
+      
+      return true;  // Will respond asynchronously.
+    }
+  }
+);
+
+
+// On first install, open Vetd platform
+// This increases the liklihood that user will link their Vetd account.
+chrome.runtime.onInstalled.addListener(function (details) {	
+  if (details.reason === 'install') {	
+    chrome.tabs.create(
+      {
+        // url: 'https://app.vetd.com/chrome-extension-installed'
+        url: 'http://localhost:5080/chrome-extension-installed'
+      }
+    )	
+  }	
+})
