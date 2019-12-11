@@ -58,8 +58,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
   if (details.reason === 'install') {	
     chrome.tabs.create(
       {
-        // url: 'https://app.vetd.com/chrome-extension-installed'
-        url: 'http://localhost:5080/chrome-extension-installed'
+        url: `${BASE_URL}chrome-extension-installed`
       }
     )	
   }	
