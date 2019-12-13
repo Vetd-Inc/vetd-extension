@@ -1,16 +1,12 @@
 {
   "manifest_version": 2,
   "name": "Vetd - Sales Email Gatekeeper",
-  "version": "1.0",
+  "short_name": "Vetd",
+  "version": "1.2.0",
   "description": "Block sales emails and automatically forward them to Vetd to evaluate for you.",
   "permissions": [
     "storage",
     "tabs",
-
-    // for local testing
-    // "http://localhost/",
-    // "http://localhost:5080/",
-    
     "https://mail.google.com/",
     "https://inbox.google.com/",
     "https://app.vetd.com/"
@@ -32,10 +28,6 @@
   },
   "externally_connectable": {
     "matches": [
-      // for local testing
-      // "http://localhost/*",
-      // "http://localhost:5080/*",
-      
       "https://app.vetd.com/*"
     ]
   },
@@ -43,6 +35,6 @@
     "icon.png"
   ],
   "icons": {
-    "128": "icon.png"
+    "128": "icon128.png"
   }
 }
